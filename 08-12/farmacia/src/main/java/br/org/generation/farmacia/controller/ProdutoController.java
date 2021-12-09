@@ -45,6 +45,11 @@ public class ProdutoController {
 		return ResponseEntity.ok(produtoRepository.findAllByNomeContainingIgnoreCase(nome));
 	}
 	
+	@GetMapping("/nome/{nome}/laboratorio/{laboratorio}")
+	public ResponseEntity <List<Produto>> getByNomeAndLaboratorio(@PathVariable String nome, @PathVariable String laboratorio){
+		return ResponseEntity.ok(produtoRepository.findAllByNomeContainsAndLaboratorioContainsAllIgnoreCase(nome, laboratorio));
+	}
+	
 	@PostMapping
 	public ResponseEntity <Produto> postProduto (@Valid @RequestBody Produto produto){
 		return ResponseEntity.status(HttpStatus.CREATED).body(produtoRepository.save(produto));
